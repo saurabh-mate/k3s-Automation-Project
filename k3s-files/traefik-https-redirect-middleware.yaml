@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: my-app-redirect-https
+  namespace: my-app
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
