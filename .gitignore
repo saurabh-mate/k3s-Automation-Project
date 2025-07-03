@@ -1,73 +1,27 @@
-# Byte-compiled / virtual environment files
-__pycache__/
-*.py[cod]
-*.so
-*.egg-info/
-*.log
-
-# Python virtual environments
-venv/
-env/
-ENV/
-
-# System files
-.DS_Store
-Thumbs.db
-
 # Terraform
-terraform/.terraform/
-terraform/terraform.tfstate
-terraform/terraform.tfstate.*
-terraform/*.tfvars
-terraform/.terraform.lock.hcl
-terraform/crash.log
+terraform.tfstate
+terraform.tfstate.*
+.terraform/
 
 # Ansible
-*.retry
-ansible/.vault_pass.txt
+ansible/inventory.ini
 
-# Kubernetes
-k3s-files/*.yaml.backup
-kubeconfig
-k3s.yaml
-.kube/
-
-# Certificates / Secrets
+# SSH keys (example)
 *.pem
-*.crt
 *.key
-*.secret
-*.enc
-secrets.yaml
 
-# Editor-specific
-.vscode/
-.idea/
+# Python (if any scripts are used)
+__pycache__/
+*.pyc
+
+# macOS / Linux / system files
+.DS_Store
 *.swp
 *.swo
 
-# Docker
-*.tar
-docker-compose.override.yml
-
 # Logs
 *.log
-logs/
-*.pid
 
-# Build artifacts
-dist/
-build/
-*.egg
-
-# Ignore local inventory and output files
-ansible/inventory.ini
-*.out
-*.bak
-*.tmp
-# Terraform state
-terraform.tfstate
-terraform.tfstate.*
-
-# Ansible inventory (generated dynamically)
-terraform/ansible/inventory.ini
+# Editor/IDE files
+.vscode/
+.idea/

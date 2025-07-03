@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: my-container
-          image: harshal001/my-shoes-app-clean:latest
+          image: saurabhmate/my-shoes-app:latest
           ports:
             - containerPort: 80
 
