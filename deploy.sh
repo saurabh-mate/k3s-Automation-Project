@@ -37,7 +37,8 @@ kubectl create namespace my-app || echo "Namespace 'my-app' already exists"
 echo "Step 3: Deploying K8s application"
 kubectl apply -f k3s-files/letsencrypt-prod.yaml
 kubectl apply -f k3s-files/traefik-https-redirect-middleware.yaml
-kubectl apply -f k3s-files/ecom-pv.yaml
+kubectl apply -f k3s-files/ecom.yaml
+kubectl apply -f k3s-files/monitoring-ingress.yaml
 
 echo "Deployment completed!"
 echo " Access your app at: https://ecom.saurabhmate.cloud"

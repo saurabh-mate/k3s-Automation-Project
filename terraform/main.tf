@@ -77,6 +77,47 @@ ingress {
     ipv6_cidr_blocks = ["::/0"]
   }
 
+  ingress {
+    description      = "tcp"
+    from_port        = 3000
+    to_port          = 3000
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+ ingress {
+    description      = "tcp"
+    from_port        = 31622
+    to_port          = 31622
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+ingress {
+    description      = "tcp"
+    from_port        = 9100
+    to_port          = 9100
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+ingress {
+    description      = "tcp"
+    from_port        = 9090
+    to_port          = 9090
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+ingress {
+    description      = "tcp"
+    from_port        = 3100
+    to_port          = 3100
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
   egress {
     from_port        = 0
     to_port          = 0
@@ -106,7 +147,30 @@ resource "cloudflare_record" "terraform_subdomain" {
   ttl     = 1
   proxied = true
 }
-
+resource "cloudflare_record" "terraform_subdomain" {
+  zone_id = var.cloudflare_zone_id
+  name    = "grafana"
+  value   = aws_instance.app_server.public_ip
+  type    = "A"
+  ttl     = 1
+  proxied = true
+}
+resource "cloudflare_record" "terraform_subdomain" {
+  zone_id = var.cloudflare_zone_id
+  name    = "prometheus"
+  value   = aws_instance.app_server.public_ip
+  type    = "A"
+  ttl     = 1
+  proxied = true
+}
+resource "cloudflare_record" "terraform_subdomain" {
+  zone_id = var.cloudflare_zone_id
+  name    = "loki"
+  value   = aws_instance.app_server.public_ip
+  type    = "A"
+  ttl     = 1
+  proxied = true
+}
 output "instance_public_ip" {
   value = aws_instance.app_server.public_ip
 }

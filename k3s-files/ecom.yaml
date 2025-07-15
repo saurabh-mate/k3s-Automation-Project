@@ -16,6 +16,7 @@ spec:
       containers:
         - name: my-container
           image: saurabhmate/my-shoes-app:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 
