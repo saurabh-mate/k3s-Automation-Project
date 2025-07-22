@@ -9,31 +9,32 @@ metadata:
 spec:
   ingressClassName: traefik
   tls:
-  - hosts:
-      - grafana.saurabhmate.cloud
-      - prometheus.saurabhmate.cloud
-    secretName: monitoring-tls
+    - hosts:
+        - grafana.saurabhmate.cloud
+        - prometheus.saurabhmate.cloud
+      secretName: monitoring-tls
   rules:
-  - host: grafana.saurabhmate.cloud
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: prometheus-grafana
-            port:
-              number: 80
-  - host: prometheus.saurabhmate.cloud
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: prometheus-kube-prometheus-prometheus
-            port:
-              number: 9090           
+    - host: grafana.saurabhmate.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 3000
+    - host: prometheus.saurabhmate.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus-kube-prometheus-prometheus
+                port:
+                  number: 9090
+
 ---  
   # - host: loki.saurabhmate.cloud
   #   http:
@@ -55,10 +56,6 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   ingressClassName: traefik
-  tls:
-    - hosts:
-        - loki.saurabhmate.cloud
-      secretName: loki-tls
   rules:
     - host: loki.saurabhmate.cloud
       http:

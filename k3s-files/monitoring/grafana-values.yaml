@@ -1,0 +1,42 @@
+adminPassword: admin
+service:
+  type: ClusterIP
+
+envFromSecrets:
+  - name: grafana-client-secret
+
+envValueFrom:
+  CLIENT_SECRET:
+    secretKeyRef:
+      name: grafana-client-secret
+      key: client-secret
+
+grafana.ini:
+  server:
+    root_url: https://grafana.saurabhmate.cloud
+  auth:
+    disable_login_form: false
+  auth.generic_oauth:
+    enabled: true
+    name: Keycloak
+    allow_sign_up: true
+    client_id: grafana-client
+    client_secret: "${CLIENT_SECRET}"
+    scopes: openid profile email
+    auth_url: https://keycloak.saurabhmate.cloud/realms/test-realm/protocol/openid-connect/auth
+    token_url: https://keycloak.saurabhmate.cloud/realms/test-realm/protocol/openid-connect/token
+    api_url: https://keycloak.saurabhmate.cloud/realms/test-realm/protocol/openid-connect/userinfo
+    role_attribute_path: "contains(roles[], 'admin') && 'Admin' || contains(roles[], 'editor') && 'Editor' || 'Viewer'"
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - grafana.saurabhmate.cloud
+  tls:
+    - secretName: grafana-tls
+      hosts:
+        - grafana.saurabhmate.cloud

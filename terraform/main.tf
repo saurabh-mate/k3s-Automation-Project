@@ -171,6 +171,22 @@ resource "cloudflare_record" "terraform_subdomain" {
   ttl     = 1
   proxied = true
 }
+resource "cloudflare_record" "terraform_subdomain" {
+  zone_id = var.cloudflare_zone_id
+  name    = "kuma"
+  value   = aws_instance.app_server.public_ip
+  type    = "A"
+  ttl     = 1
+  proxied = true
+}
+resource "cloudflare_record" "terraform_subdomain" {
+  zone_id = var.cloudflare_zone_id
+  name    = "simple-http"
+  value   = aws_instance.app_server.public_ip
+  type    = "A"
+  ttl     = 1
+  proxied = true
+}    
 output "instance_public_ip" {
   value = aws_instance.app_server.public_ip
 }
