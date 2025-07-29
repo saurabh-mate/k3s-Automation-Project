@@ -1,5 +1,9 @@
 service:
-  type: LoadBalancer
+  type: ClusterIP
+
+persistence:
+  enabled: true
+  existingClaim: portainer-pvc
 
 ingress:
   enabled: true

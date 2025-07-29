@@ -1,0 +1,52 @@
+{
+    "apiVersion": "longhorn.io/v1beta2",
+    "kind": "EngineImage",
+    "metadata": {
+        "creationTimestamp": "2025-07-25T06:56:51Z",
+        "deletionGracePeriodSeconds": 0,
+        "deletionTimestamp": "2025-07-26T11:56:35Z",
+     
+        "generation": 2,
+        "labels": {
+            "longhorn.io/component": "engine-image",
+            "longhorn.io/engine-image": "ei-b4bcf0a5",
+            "longhorn.io/managed-by": "longhorn-manager"
+        },
+        "name": "ei-b4bcf0a5",
+        "namespace": "longhorn-system",
+        "resourceVersion": "816183",
+        "uid": "5c06ff50-75e4-41cf-99f7-2392dbe8a433"
+    },
+    "spec": {
+        "image": "longhornio/longhorn-engine:v1.9.1"
+    },
+    "status": {
+        "buildDate": "2025-07-22T22:04:57+00:00",
+        "cliAPIMinVersion": 8,
+        "cliAPIVersion": 10,
+        "conditions": [
+            {
+                "lastProbeTime": "",
+                "lastTransitionTime": "2025-07-25T06:57:08Z",
+                "message": "Engine image ei-b4bcf0a5 (longhornio/longhorn-engine:v1.9.1) is fully deployed on all ready nodes",
+                "reason": "",
+                "status": "True",
+                "type": "ready"
+            }
+        ],
+        "controllerAPIMinVersion": 4,
+        "controllerAPIVersion": 5,
+        "dataFormatMinVersion": 1,
+        "dataFormatVersion": 1,
+        "gitCommit": "e28f603a7c2dbebb739997102c7dfb9685fba261",
+        "incompatible": false,
+        "noRefSince": "2025-07-25T06:56:51Z",
+        "nodeDeploymentMap": {
+            "ip-172-31-23-239": true
+        },
+        "ownerID": "ip-172-31-23-239",
+        "refCount": 0,
+        "state": "deployed",
+        "version": "v1.9.1"
+    }
+}

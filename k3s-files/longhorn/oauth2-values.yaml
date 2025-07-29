@@ -1,0 +1,27 @@
+config:
+  clientID: longhorn-client
+  clientSecret: 4uXco6debuvPhuCRVOSD9AaIzyO7a4gg
+  cookieSecret: n4FFGAz0XGticg3g6uko9Sc+gLKI68ci
+  configFile: |-
+    provider = "oidc"
+    oidc_issuer_url = "https://keycloak.saurabhmate.cloud/realms/test-realm"
+    redirect_url = "https://longhorn.saurabhmate.cloud/oauth2/callback"
+    upstreams = ["http://longhorn-frontend.longhorn-system.svc.cluster.local:80"]
+    cookie_secure = true
+    email_domains = ["*"]
+    whitelist_domains = [".saurabhmate.cloud"]
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  path: /
+  pathType: Prefix
+  hosts:
+    - longhorn.saurabhmate.cloud
+  tls:
+    - hosts:
+        - longhorn.saurabhmate.cloud
+      secretName: longhorn-tls
+
+service:
+  type: ClusterIP

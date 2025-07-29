@@ -1,9 +1,22 @@
-# --- Deployment ---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: uptime-kuma-pvc
+  namespace: uptime-kuma
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: longhorn
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: uptime-kuma
-  namespace: uptime-kuma
+  namespace: uptime-kuma 
 spec:
   replicas: 1
   selector:
@@ -19,22 +32,27 @@ spec:
         image: louislam/uptime-kuma:1
         ports:
         - containerPort: 3001
+        volumeMounts:
+        - name: uptime-kuma-storage
+          mountPath: /app/data
+      volumes:
+      - name: uptime-kuma-storage
+        persistentVolumeClaim:
+          claimName: uptime-kuma-pvc
 
----
-# --- Service ---
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: uptime-kuma-service
-  namespace: uptime-kuma
+  namespace: uptime-kuma 
 spec:
   selector:
     app: uptime-kuma
   ports:
   - name: http
-    port: 80        # Exposed to Ingress
-    targetPort: 3001 # Internal Kuma port
+    port: 80        
+    targetPort: 3001 
     protocol: TCP
   type: ClusterIP
 
@@ -51,17 +69,17 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-  - host: kuma.saurabhmate.cloud
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: uptime-kuma-service
-            port:
-              number: 80
+    - host: kuma.saurabhmate.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: oauth2-proxy
+                port:
+                  number: 4180
   tls:
-  - hosts:
-    - kuma.saurabhmate.cloud
-    secretName: uptime-kuma-cert
+    - hosts:
+        - kuma.saurabhmate.cloud
+      secretName: uptime-kuma-cert

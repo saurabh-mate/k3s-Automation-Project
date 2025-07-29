@@ -1,0 +1,38 @@
+config:
+  clientID: uptime-kuma-client
+  clientSecret: iSPy8t5yR0GdZPzw18nOcVbWke0ZHlY2
+  cookieSecret: I/G/D+ZqhPDxoXMoplC/HuWuPu93T9Gj
+  provider: oidc
+  redirectURL: https://kuma.saurabhmate.cloud/oauth2/callback
+  oidcIssuerURL: https://keycloak.saurabhmate.cloud/realms/test-realm
+  emailDomains: ["*"]
+
+extraArgs:
+  - --provider=oidc
+  - --oidc-issuer-url=https://keycloak.saurabhmate.cloud/realms/test-realm
+  - --client-id=uptime-kuma-client
+  - --client-secret=iSPy8t5yR0GdZPzw18nOcVbWke0ZHlY2
+  - --redirect-url=https://kuma.saurabhmate.cloud/oauth2/callback
+  - --upstream=http://uptime-kuma-service.uptime-kuma.svc.cluster.local:80
+  - --http-address=0.0.0.0:4180
+  - --set-xauthrequest=true
+  - --scope=openid email profile   
+
+
+
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+  cert-manager.io/cluster-issuer: letsencrypt-prod
+  traefik.ingress.kubernetes.io/router.entrypoints: websecure
+  traefik.ingress.kubernetes.io/router.middlewares: uptime-kuma-forward-auth@kubernetescrd
+  traefik.ingress.kubernetes.io/strip-path: "false"
+  hosts:
+    - kuma.saurabhmate.cloud
+  path: /
+  tls:
+    - hosts:
+        - kuma.saurabhmate.cloud
+      secretName: uptime-kuma-cert

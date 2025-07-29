@@ -1,0 +1,15 @@
+# k3s-files/longhorn/oauth2-middleware.yaml
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth2-auth
+  namespace: longhorn-system
+spec:
+  forwardAuth:
+    address: "https://longhorn.saurabhmate.cloud/oauth2/auth"
+    trustForwardHeader: true
+    authResponseHeaders:
+      - "X-Auth-Request-User"
+      - "X-Auth-Request-Email"
+      - "Authorization"
+      - "Set-Cookie"
